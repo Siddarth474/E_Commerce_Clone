@@ -2,16 +2,20 @@ import React, { useContext } from 'react';
 import {useNavigate} from 'react-router';
 import { CategoryContext } from '../context/Context';
 import { MdDelete } from "react-icons/md";
+import { handleSuccess } from '../utils/notification';
 
 const WishlistPage = () => {
     const {wishlist,setWishlist} = useContext(CategoryContext);
     const navigate = useNavigate()
 
     const deleteItem = (id) => {
+        let removed = false;
         const updatedList = wishlist.filter((item) => {
+            removed = true;
             return item.id !== id;
         });
         setWishlist(updatedList);
+        if(removed) handleSuccess('Removed');
     }
 
   return (
