@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CategoryContext } from '../context/Context'
 import {useNavigate} from 'react-router'
 import DeletePopUp from './DeletePopUp';
+import { handleSuccess } from '../utils/notification';
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -98,7 +99,7 @@ const Cart = () => {
             <div className='hidden lg:flex items-center justify-between sm:justify-end 
             text-lg sm:text-xl font-semibold  p-6 '>
                 <h1 className='block sm:hidden'>₹{total}</h1>
-               <button onClick={() => {alert('Your order is placed!'), setCartProducts([]) }} 
+               <button onClick={() => {handleSuccess('Your order is placed!'), setCartProducts([]) }} 
                className='bg-orange-400 text-white rounded px-4 py-2'>Place Order</button>
             </div>
         </section>)}
@@ -138,7 +139,7 @@ const Cart = () => {
             <div className='flex p-3 lg:hidden items-center justify-between bg-white w-full
             sm:justify-end text-lg sm:text-xl font-semibold border-t border-gray-300 bottom-0 left-0 fixed z-40'>
                 <h1 className='block sm:hidden'>₹{total}</h1>
-                <button onClick={() => {alert('Your order is placed!'), setCartProducts([]) }} 
+                <button onClick={() => {handleSuccess('Your order is placed!'), setCartProducts([]) }} 
                 className='bg-orange-400 text-white rounded px-4 py-2'>Place Order</button>
             </div> 
         </section> )}

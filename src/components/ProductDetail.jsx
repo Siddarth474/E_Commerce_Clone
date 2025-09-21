@@ -2,6 +2,7 @@ import React, {useContext,useState} from 'react'
 import {useLocation, useNavigate} from 'react-router'
 import { CategoryContext } from '../context/Context';
 import { FaHeart } from "react-icons/fa";
+import {handleSuccess } from '../utils/notification';
 
 const ProductDetail = () => {
   const location = useLocation();
@@ -15,20 +16,32 @@ const ProductDetail = () => {
   const discountedPrice = Math.floor(Realprice - discount);
 
   const handleCart = () => {
+    let added = false;
+    
     setCartProducts(prev => {
       const exist = prev.find(p => p.id === product.id);
       if (exist) return prev;
+      added = true;
       return [...prev, {...product, quantity: 1}];
     });
+    if(added) handleSuccess('Added to the cart');
   }
   
   const handleWishlist = () => {
+    let added = false;
+
     setWishlist(prev => {
       const listed = prev.find(p => p.id === product.id);
-      if (listed) return prev.filter(p => p.id !== product.id);
-
+      if (listed) {
+        added = false;
+        return prev.filter(p => p.id !== product.id);
+      }
+      added = true;
       return [...prev , product]; 
     });
+
+    if(added) handleSuccess('Added to the wishlist');
+    else handleSuccess('Removed from the wishlist');
   }
 
   const isWishlisted = wishlist.some(item => item.id === product.id);
@@ -95,7 +108,7 @@ const ProductDetail = () => {
         </div>
 
         <div className='w-full  flex md:hidden gap-2 bg-white px-3 py-2 text-white mt-3 bottom-0 left-0 fixed z-40'>
-          <button onClick={() => handleCart()}
+          <button onClick={handleCart}
           className='text-lg p-2 bg-amber-400 w-[50%] rounded
            font-semibold cursor-pointer'>Add To Cart</button>
           <button onClick={() => {navigate(`/cart`); handleCart();}}  

@@ -7,6 +7,7 @@ import SelectedCategory from './components/SelectedCategory';
 import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import WishlistPage from './components/WishlistPage';
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
           <Route path='/wishlist' element={<WishlistPage />} />
         </Routes>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   )
 }

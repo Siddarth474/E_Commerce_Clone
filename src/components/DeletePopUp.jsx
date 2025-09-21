@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { CategoryContext } from '../context/Context'
+import { handleSuccess } from '../utils/notification';
 
 const DeletePopUp = () => {
     const {isDelete,cartProducts,setCartProducts, setShowModel} = useContext(CategoryContext);
@@ -9,6 +10,7 @@ const DeletePopUp = () => {
             return p.id !== id;
         });
         setCartProducts(updatedCart);
+        handleSuccess('Item removed');
         setShowModel(false);
     }
 
